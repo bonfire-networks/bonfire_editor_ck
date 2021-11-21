@@ -1,0 +1,15 @@
+<div 
+ class="editor"
+ id={Pointers.ULID.generate()}
+ phx-hook="MarkdownEditor">
+  <div 
+    class={"editor_area editor-visual #{@textarea_class}"} 
+    phx-ignore="true"
+    placeholder={@content_placeholder }></div>
+
+    <input 
+    name={@field_name} 
+    type="hidden"
+    class="editor_hidden_input"
+    />
+</div>
