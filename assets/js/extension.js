@@ -9,7 +9,7 @@ EditorCkHooks.MarkdownEditor = {
   mounted() {
     console.log("editor - ck5 loading!");
 
-    Editor.create(document.querySelector(".editor_area"), {
+    Editor.create(this.el.querySelector(".editor_area"), {
       mention: {
         feeds: [
           {
