@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 
 # You will almost certainly want to change at least some of these
