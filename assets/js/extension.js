@@ -7,10 +7,12 @@ let EditorCkHooks = {};
 
 EditorCkHooks.MarkdownEditor = { 
   mounted() {
-    console.log("editor - ck5 loading!");
+    console.log("editor - ck5 loading for elements with class .editor_area");
 
-    Editor.create(this.el.querySelector("#editor"), {
-      
+    area = this.el.querySelector(".editor_area")
+    // console.log(area)
+
+    Editor.create(area, {
       mention: {
         feeds: [
           {
