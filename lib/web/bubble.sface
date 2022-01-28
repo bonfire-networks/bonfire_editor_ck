@@ -1,19 +1,11 @@
 <div 
- class="h-40 editor"
+ class="h-32 editor"
  id={Pointers.ULID.generate()}
  phx-hook="MarkdownEditor">
   <div 
     id="editor"
-    class={"editor_area h-40 editor-visual #{@textarea_class}"} 
-    phx-ignore="true"
+    class={"editor_area h-32 editor-visual #{@textarea_class}"} 
     placeholder={@content_placeholder }></div>
-    <!-- <textarea  
-      name={@field_name} 
-      class={"editor_area h-40 editor-visual #{@textarea_class}"} 
-      id="editor" 
-      phx-ignore="true"
-      placeholder="Type the content here!"></textarea> -->
-
     <input 
     name={@field_name} 
     type="hidden"
