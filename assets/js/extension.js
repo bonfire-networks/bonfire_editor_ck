@@ -12,6 +12,8 @@ EditorCkHooks.MarkdownEditor = {
     area = this.el.querySelector(".editor_area")
     // console.log(area)
 
+    placeholder = area.dataset.placeholder || '|'
+
     Editor.create(area, {
       mention: {
         feeds: [
@@ -32,7 +34,7 @@ EditorCkHooks.MarkdownEditor = {
           },
         ],
       },
-      placeholder: 'Type the content here!',
+      placeholder: placeholder,
     })
       .then((editor) => {
         window.editor = editor;

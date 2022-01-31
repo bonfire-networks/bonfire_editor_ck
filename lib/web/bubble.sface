@@ -5,7 +5,8 @@
   <div 
     id="editor"
     class={"editor_area h-32 editor-visual #{@textarea_class}"} 
-    placeholder={@content_placeholder }></div>
+    data-placeholder={@placeholder |> debug}
+    >{@content}</div>
     <input 
     name={@field_name} 
     type="hidden"
