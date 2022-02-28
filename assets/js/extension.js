@@ -146,14 +146,19 @@ function MentionCustomization(editor) {
 
 function mentionItemRenderer(item) {
   const itemElement = document.createElement("span");
+  console.log(item)
+  itemElement.classList.add("mention-item");
+  const nameElement = document.createElement("span");
+  nameElement.classList.add("mention-item-name");
+  nameElement.textContent = item.name;
+  itemElement.appendChild(nameElement);
 
-  itemElement.classList.add("custom-item");
   // itemElement.id = `mention-list-item-id-${item.userId}`;
-  itemElement.textContent = `${item.name} `;
+  // itemElement.textContent = `${item.name} `;
 
   const usernameElement = document.createElement("span");
 
-  usernameElement.classList.add("custom-item-username");
+  usernameElement.classList.add("mention-item-username");
   usernameElement.textContent = item.id;
 
   itemElement.appendChild(usernameElement);
