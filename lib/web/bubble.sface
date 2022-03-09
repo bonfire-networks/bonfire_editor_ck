@@ -14,8 +14,9 @@
     id={Pointers.ULID.generate()}
     phx-hook="MarkdownEditor">
     <div 
+      style="padding-right: 30px"
       id="editor"
-      class={"editor_area h-32 editor-visual #{@textarea_class}"} 
+      class={" editor_area h-32 editor-visual #{@textarea_class}"} 
       data-placeholder={@placeholder}
       >{@content}</div>
       <input 
@@ -24,7 +25,7 @@
       class="editor_hidden_input"
       />
   </div>
-  <div @click="open = ! open" class="absolute z-10 top-3 right-3 btn btn-ghost btn-xs btn-circle">
+  <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
     <Solid.EmojiHappyIcon class="w-5 h-5 text-base-content text-opacity-70" />
   </div>
   <div 
