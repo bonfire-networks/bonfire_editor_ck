@@ -1,4 +1,5 @@
 {
 	"dependencies": {
+		"insert-text-at-cursor": "^0.3.0"
 	}
 }

@@ -32,10 +32,10 @@ npm-debug.log
 
 # The directory NPM downloads your dependencies sources to.
 /assets/node_modules/
+/assets/js/ckeditor/node_modules/
 
 # Since we are building assets from assets/
 /priv/static/
-
 # App and user data
 /data/
 
@@ -45,3 +45,4 @@ deps.path
 /forks
 
 .\#*
+

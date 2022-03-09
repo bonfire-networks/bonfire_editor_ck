@@ -1,6 +1,7 @@
 // using a pre-built editor because of troubles building ck's sass with esbuild
 // it can be customised in ./ckeditor (see package.json and src/ckeditor.js) and rebuilt with npm/webpack
 import Editor from "./ckeditor/build/ckeditor";
+import insertText from 'insert-text-at-cursor';
 
 let EditorCkHooks = {};
 
@@ -50,6 +51,10 @@ EditorCkHooks.MarkdownEditor = {
       // console.log(this)
       this.el.querySelector('.editor_hidden_input').value = editorData;
     });
+
+    document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
+      insertText(document.querySelector('#editor'), e.detail.unicode)
+    })
     
   },
 };

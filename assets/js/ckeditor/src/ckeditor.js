@@ -32,6 +32,9 @@ import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough.js
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
+import 'emoji-picker-element';
+
+
 
 class Editor extends BalloonEditor {}
 
@@ -72,23 +75,10 @@ Editor.builtinPlugins = [
 Editor.defaultConfig = {
 	toolbar: {
 		items: [
-			'link',
-			'blockQuote',
-			'|',
-			'bold',
-			'italic',
-			'|',
-			'bulletedList',
-			'numberedList',
-			'todoList',
-			'|',
-			'outdent',
-			'indent',
-			'|',
 			'heading',
-			'|',
-			'undo',
-			'removeFormat'
+			'link',
+			'bold',
+			'italic'
 		]
 	},
 	language: 'en',
@@ -100,3 +90,4 @@ Editor.defaultConfig = {
 };
 
 export default Editor;
+export {insertText}

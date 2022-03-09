@@ -40,5 +40,8 @@
   },
   "scripts": {
     "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "emoji-picker-element": "^1.10.1"
   }
 }
