@@ -41,29 +41,29 @@ class Editor extends BalloonEditor {}
 // Plugins to include in the build.
 Editor.builtinPlugins = [
 	Autoformat,
-	AutoImage,
+	// AutoImage,
 	AutoLink,
-	BlockQuote,
+	// BlockQuote,
 	Bold,
-	Code,
-	CodeBlock,
+	// Code,
+	// CodeBlock,
 	Essentials,
 	Heading,
-	HorizontalLine,
-	Image,
-	ImageCaption,
-	ImageToolbar,
-	Indent,
-	IndentBlock,
+	// HorizontalLine,
+	// Image,
+	// ImageCaption,
+	// ImageToolbar,
+	// Indent,
+	// IndentBlock,
 	Italic,
 	Link,
 	List,
 	ListStyle,
 	Markdown,
 	Mention,
-	Paragraph,
+	// Paragraph,
 	PasteFromOffice,
-	RemoveFormat,
+	// RemoveFormat,
 	SourceEditing,
 	Strikethrough,
 	TextTransformation,
@@ -90,4 +90,4 @@ Editor.defaultConfig = {
 };
 
 export default Editor;
-export {insertText}
+// export {insertText}
