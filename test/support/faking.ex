@@ -5,8 +5,8 @@ defmodule Bonfire.Editor.Ck.Test.Faking do
   # import Bonfire.Editor.Ck.Simulate
 
   # import ExUnit.Assertions
-  # import Bonfire.GraphQL.Test.GraphQLAssertions
-  # import Bonfire.GraphQL.Test.GraphQLFields
+  # import Bonfire.API.GraphQL.Test.GraphQLAssertions
+  # import Bonfire.API.GraphQL.Test.GraphQLFields
   # import CommonsPub.Utils.Trendy
 
   # import Grumble
