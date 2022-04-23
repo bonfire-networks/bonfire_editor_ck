@@ -10,13 +10,13 @@
   }"
   x-on:keydown.escape.prevent.stop="close($refs.button)">
   <div 
-    class="relative h-32 "
+    class="relative"
     id={Pointers.ULID.generate()}
     phx-hook="MarkdownEditor">
     <div 
       style="padding-right: 30px"
       id="editor"
-      class={" editor_area h-32 editor-visual #{@textarea_class}"} 
+      class={" editor_area editor-visual #{@textarea_class}"} 
       data-placeholder={@placeholder}
       >{@content}</div>
       <input 
