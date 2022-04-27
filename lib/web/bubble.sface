@@ -1,5 +1,6 @@
 <div 
-  class="relative" 
+  class="relative"
+  phx-update="ignore" 
   x-data="{
     open: false,
     close(focusAfter) {
@@ -12,19 +13,24 @@
   <div 
     class="relative"
     id={Pointers.ULID.generate()}
-    phx-hook="MarkdownEditor">
-    <div 
-      style="padding-right: 30px"
-      id="editor"
-      class={" editor_area editor-visual #{@textarea_class}"} 
-      data-placeholder={@placeholder}
-      >{@content}</div>
-      <input 
-      name={@field_name} 
-      type="hidden"
-      class="editor_hidden_input"
-      />
+    phx-hook="MarkdownEditor"
+    data-insert_text={e(assigns, :insert_text, "")}
+    >
+    <div>
+      <div 
+        id="editor"
+        data-placeholder={@placeholder}
+        class={" editor_area editor-visual #{@textarea_class}"} 
+        style="padding-right: 30px"
+        >{@content} </div>
+        <input 
+        name={@field_name} 
+        type="hidden"
+        class="editor_hidden_input"
+        />
+    </div>
   </div>
+
   <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
     <Solid.EmojiHappyIcon class="w-5 h-5 text-base-content text-opacity-70" />
   </div>

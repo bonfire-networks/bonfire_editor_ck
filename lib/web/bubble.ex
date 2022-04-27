@@ -5,4 +5,5 @@ defmodule Bonfire.Editor.Ck.Bubble do
   prop placeholder, :string
   prop content, :string
   prop textarea_class, :string
+  prop insert_text, :string
 end

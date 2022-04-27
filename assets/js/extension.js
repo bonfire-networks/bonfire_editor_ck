@@ -8,55 +8,69 @@ let EditorCkHooks = {};
 
 EditorCkHooks.MarkdownEditor = { 
   mounted() {
-    console.log("editor - ck5 loading for elements with class .editor_area");
+    const area = document.querySelector('.editor_area');
 
-    area = this.el.querySelector(".editor_area")
-    // console.log(area)
-
-    placeholder = area.dataset.placeholder || '|'
-
-    Editor.create(area, {
-      mention: {
-        feeds: [
-          {
-            marker: "@",
-            feed: getFeedItems_users,
-            itemRenderer: mentionItemRenderer,
-          },
-          {
-            marker: "&",
-            feed: getFeedItems_groups,
-            itemRenderer: mentionItemRenderer,
-          },
-          {
-            marker: "+",
-            feed: getFeedItems_extras,
-            itemRenderer: mentionItemRenderer,
-          },
-        ],
-      },
-      placeholder: placeholder,
-    })
-      .then((editor) => {
-        window.editor = editor;
-      })
-      .catch((error) => {
-        console.error("There was a problem initializing the editor.", error);
-      });
-     
-    // Assuming there is a <form class="form_with_editor"> in your application.
-    document.querySelector('.form_with_editor').addEventListener('submit', (event) => {
-      const editorData = editor.getData();
-      // console.log(editorData)
-      // console.log(this)
-      this.el.querySelector('.editor_hidden_input').value = editorData;
-    });
-
-    document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
-      insertText(document.querySelector('#editor'), e.detail.unicode)
-    })
+    // Get the editor instance from the editable element.
+    const editorInstance = area.ckeditorInstance;
     
+    if (!editorInstance) {
+      console.log("editor - ck5 loading for elements with class .editor_area");
+
+      // console.log(area)
+
+      placeholder = area.dataset.placeholder || '|'
+
+      Editor.create(area, {
+        mention: {
+          feeds: [
+            {
+              marker: "@",
+              feed: getFeedItems_users,
+              itemRenderer: mentionItemRenderer,
+            },
+            {
+              marker: "&",
+              feed: getFeedItems_groups,
+              itemRenderer: mentionItemRenderer,
+            },
+            {
+              marker: "+",
+              feed: getFeedItems_extras,
+              itemRenderer: mentionItemRenderer,
+            },
+          ],
+        },
+        placeholder: placeholder,
+      })
+        .then((editor) => {
+          console.log("editor ready");
+          window.editor = editor;
+          
+          // insertText(window.editor, this.el.dataset.insert_text)
+        })
+        .catch((error) => {
+          console.error("There was a problem initializing the editor.", error);
+        });
+
+      // Assuming there is a <form class="form_with_editor"> in your application.
+      document.querySelector('.form_with_editor').addEventListener('submit', (event) => {
+        const editorData = editor.getData();
+        // console.log(editorData)
+        // console.log(this)
+        this.el.querySelector('.editor_hidden_input').value = editorData;
+      });
+
+      document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
+        insertText(document.querySelector('#editor'), e.detail.unicode)
+      })
+    } // end init
+
   },
+  updated() {
+    console.log("editor updated")
+    console.log(this.el.dataset.insert_text)
+    insertText(document.querySelector('#editor'), this.el.dataset.insert_text)
+  }
 };
 
 function getFeedItems_users(queryText) {
