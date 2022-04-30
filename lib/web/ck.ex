@@ -1,4 +1,7 @@
-defmodule Bonfire.Editor.Ck.Bubble do
+defmodule Bonfire.Editor.Ck do
+  @moduledoc """
+  Component for embedding a CKeditor-based rich text editor
+  """
   use Bonfire.Web, :stateless_component
 
   prop field_name, :string
