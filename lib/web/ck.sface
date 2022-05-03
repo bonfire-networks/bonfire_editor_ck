@@ -12,6 +12,7 @@
   }"
   x-on:keydown.escape.prevent.stop="close($refs.button)">
   <div 
+    id={Pointers.ULID.generate()}
     class="relative"
     phx-hook="MarkdownEditor"
     data-insert_text={e(assigns, :insert_text, "")}
