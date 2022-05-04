@@ -22,7 +22,7 @@ defmodule Bonfire.Editor.Ck.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Bonfire.Editor.Ck.DataCase
+      # import Bonfire.Editor.Ck.DataCase
     end
   end
 

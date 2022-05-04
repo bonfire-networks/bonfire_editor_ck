@@ -26,7 +26,7 @@ defmodule Bonfire.Editor.Ck.ConnCase do
       import Bonfire.UI.Common.Testing.Helpers
 
       import Phoenix.LiveViewTest
-      import Bonfire.Editor.Ck.ConnCase
+      # import Bonfire.Editor.Ck.ConnCase
       import Bonfire.Editor.Ck.Test.ConnHelpers
       import Bonfire.Editor.Ck.Test.FakeHelpers
       alias Bonfire.Editor.Ck.Fake
