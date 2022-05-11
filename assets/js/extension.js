@@ -52,8 +52,8 @@ EditorCkHooks.MarkdownEditor = {
           console.error("There was a problem initializing the editor.", error);
         });
 
-      // Assuming there is a <form class="form_with_editor"> in your application.
-      document.querySelector('.form_with_editor').addEventListener('submit', (event) => {
+      // Assuming there is a <form class="with_editor"> in your application.
+      document.querySelector('form.with_editor').addEventListener('submit', (event) => {
         const editorData = editor.getData();
         // console.log(editorData)
         // console.log(this)
