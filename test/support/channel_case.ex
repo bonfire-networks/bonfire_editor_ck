@@ -30,7 +30,7 @@ defmodule Bonfire.Editor.Ck.ChannelCase do
 
   setup tags do
 
-    import Bonfire.Common.Config, only: [repo: 0]
+    # import Bonfire.Common.Config, only: [repo: 0]
 
     Bonfire.Common.Test.Interactive.setup_test_repo(tags)
 
