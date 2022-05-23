@@ -36,6 +36,8 @@
     <Solid.EmojiHappyIcon class="w-5 h-5 text-base-content text-opacity-70" />
   </div>
   <div 
+    id={:emoji_picker}
+    phx-update="ignore"
     x-ref="panel"
     x-show="open"
     x-transition.origin.top.left
