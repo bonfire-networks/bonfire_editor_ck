@@ -1,7 +1,4 @@
-<div 
- class="editor"
- id={Pointers.ULID.generate()}
- phx-hook="MarkdownEditor">
+<div class="editor">
   <div class="editor-visual">
     <div class="editor_markdown"></div>
   </div>

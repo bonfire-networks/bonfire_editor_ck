@@ -5,8 +5,7 @@ import insertText from 'insert-text-at-cursor';
 
 let EditorCkHooks = {};
 
-
-EditorCkHooks.MarkdownEditor = { 
+EditorCkHooks.CkEditor = { 
   mounted() {
     const area = document.querySelector('.editor_area');
 
@@ -60,9 +59,13 @@ EditorCkHooks.MarkdownEditor = {
         this.el.querySelector('.editor_hidden_input').value = editorData;
       });
 
-      document.querySelector('emoji-picker').addEventListener('emoji-click', e => {
-        insertText(document.querySelector('#editor'), e.detail.unicode)
-      })
+      const emoji_picker = document.querySelector('emoji-picker')
+
+      if (emoji_picker) {
+        emoji_picker.addEventListener('emoji-click', e => {
+          insertText(document.querySelector('#editor'), e.detail.unicode)
+        }) 
+      }
     } // end init
 
   },

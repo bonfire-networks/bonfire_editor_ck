@@ -1,5 +1,5 @@
 <div 
-  id={Pointers.ULID.generate()}
+  id="editor_ck_container"
   class="relative"
   phx-update="ignore" 
   x-data="{
@@ -12,9 +12,9 @@
   }"
   x-on:keydown.escape.prevent.stop="close($refs.button)">
   <div 
-    id={Pointers.ULID.generate()}
+    id="editor_ck"
     class="relative"
-    phx-hook="MarkdownEditor"
+    phx-hook="CkEditor"
     data-insert_text={e(assigns, :insert_text, "")}
     >
     <div>
@@ -32,18 +32,15 @@
     </div>
   </div>
 
-  <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
+  <!-- <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
     <Solid.EmojiHappyIcon class="w-5 h-5 text-base-content text-opacity-70" />
   </div>
   <div 
-    id={:emoji_picker}
-    phx-update="ignore"
     x-ref="panel"
     x-show="open"
     x-transition.origin.top.left
     x-on:click.outside="close($refs.button)"
-    x-show="open" 
     class="absolute z-30 top-10 -right-28" role="tooltip">
     <emoji-picker></emoji-picker>
-  </div>
+  </div> -->
 </div>
