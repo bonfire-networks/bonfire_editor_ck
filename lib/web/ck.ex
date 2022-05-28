@@ -9,4 +9,7 @@ defmodule Bonfire.Editor.Ck do
   prop content, :string
   prop textarea_class, :string
   prop insert_text, :string
+
+  def output_format, do: :markdown # needed by apps to use this editor to know how to process text they receive from it
+
 end
