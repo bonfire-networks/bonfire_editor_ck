@@ -1,6 +1,6 @@
 {
+	"license": "AGPL-3.0",
 	"dependencies": {
-		"license": "AGPL-3.0",
 		"insert-text-at-cursor": "^0.3.0"
 	}
 }
