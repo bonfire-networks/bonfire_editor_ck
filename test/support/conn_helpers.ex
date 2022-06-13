@@ -10,7 +10,7 @@ defmodule Bonfire.Editor.Ck.Test.ConnHelpers do
   # # alias CommonsPub.Accounts
   # alias Bonfire.Data.Identity.Account
 
-  # @endpoint Bonfire.Common.Config.get!(:endpoint_module)
+  # @endpoint Application.compile_env!(:bonfire, :endpoint_module)
 
 
 end
