@@ -21,7 +21,7 @@
       <div 
         id="editor"
         data-placeholder={@placeholder}
-        class={" editor_area editor-visual #{@textarea_class}"} 
+        class={@textarea_class} 
         style="padding-right: 30px"
         >{@content} </div>
         <input 
