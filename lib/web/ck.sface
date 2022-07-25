@@ -15,7 +15,7 @@
     id="editor_ck"
     class="relative"
     phx-hook="CkEditor"
-    data-insert_text={e(assigns, :insert_text, "")}
+    data-insert_text={e(@insert_text, "")}
     >
     <div>
       <div 
