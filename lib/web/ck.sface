@@ -33,7 +33,7 @@
   </div>
 
   <!-- <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
-    <Solid.EmojiHappyIcon class="w-5 h-5 text-base-content text-opacity-70" />
+    <Icon solid="EmojiHappy" class="w-5 h-5 text-base-content text-opacity-70" />
   </div>
   <div 
     x-ref="panel"
