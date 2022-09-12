@@ -1,8 +1,6 @@
 <div class="editor">
   <div class="editor-visual">
-    <div class="editor_markdown"></div>
+    <div class="editor_markdown" />
   </div>
-  <textarea class="editor_textarea" 
-    name={@field_name} 
-    placeholder={@placeholder}>{@content}</textarea>
+  <textarea class="editor_textarea" name={@field_name} placeholder={@placeholder}>{@content}</textarea>
 </div>

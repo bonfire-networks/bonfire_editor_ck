@@ -10,6 +10,4 @@ defmodule Bonfire.Editor.Ck.Test.Faking do
   # import CommonsPub.Utils.Trendy
 
   # import Grumble
-
-
 end

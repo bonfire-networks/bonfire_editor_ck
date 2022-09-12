@@ -1,7 +1,7 @@
-<div 
+<div
   id="editor_ck_container"
   class="relative"
-  phx-update="ignore" 
+  phx-update="ignore"
   x-data="{
     open: false,
     close(focusAfter) {
@@ -10,25 +10,18 @@
       focusAfter && focusAfter.focus()
     }
   }"
-  x-on:keydown.escape.prevent.stop="close($refs.button)">
-  <div 
-    id="editor_ck"
-    class="relative"
-    phx-hook="CkEditor"
-    data-insert_text={e(@insert_text, "")}
-    >
+  x-on:keydown.escape.prevent.stop="close($refs.button)"
+>
+  <div id="editor_ck" class="relative" phx-hook="CkEditor" data-insert_text={e(@insert_text, "")}>
     <div>
-      <div 
+      <div
         id="editor"
         data-placeholder={@placeholder}
-        class={@textarea_class} 
+        class={@textarea_class}
         style="padding-right: 30px"
-        >{@content} </div>
-        <input 
-        name={@field_name} 
-        type="hidden"
-        class="editor_hidden_input"
-        />
+      >{@content}
+      </div>
+      <input name={@field_name} type="hidden" class="editor_hidden_input">
     </div>
   </div>
 
