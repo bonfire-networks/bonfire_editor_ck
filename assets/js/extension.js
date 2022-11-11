@@ -17,7 +17,7 @@ EditorCkHooks.CkEditor = {
 
       // console.log(area)
 
-      placeholder = area.dataset.placeholder || '|'
+      placeholder = area.dataset.placeholder || ''
 
       Editor.create(area, {
         mention: {
@@ -63,7 +63,9 @@ EditorCkHooks.CkEditor = {
 
       if (emoji_picker) {
         emoji_picker.addEventListener('emoji-click', e => {
-          insertText(document.querySelector('#editor'), e.detail.unicode)
+          console.log(e)
+          console.log("emoji")
+          insertText(document.querySelector('#editor'), "e.detail.unicode")
         }) 
       }
     } // end init
@@ -171,7 +173,7 @@ function mentionItemRenderer(item) {
   console.log(item)
   itemElement.classList.add("mention-item");
   const nameElement = document.createElement("span");
-  nameElement.classList.add("mention-item-name");
+  nameElement.classList.add("mention-item-name", "font-semibold");
   nameElement.textContent = item.name;
   itemElement.appendChild(nameElement);
 
@@ -180,7 +182,7 @@ function mentionItemRenderer(item) {
 
   const usernameElement = document.createElement("span");
 
-  usernameElement.classList.add("mention-item-username");
+  usernameElement.classList.add("mention-item-username", "font-light", "ml-1");
   usernameElement.textContent = item.id;
 
   itemElement.appendChild(usernameElement);

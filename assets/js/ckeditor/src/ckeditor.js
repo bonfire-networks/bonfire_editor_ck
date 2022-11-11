@@ -75,7 +75,6 @@ Editor.builtinPlugins = [
 Editor.defaultConfig = {
 	toolbar: {
 		items: [
-			'heading',
 			'link',
 			'bold',
 			'italic'

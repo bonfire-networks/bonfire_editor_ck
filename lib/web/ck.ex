@@ -5,7 +5,7 @@ defmodule Bonfire.Editor.Ck do
   use Bonfire.UI.Common.Web, :stateless_component
 
   prop field_name, :string
-  prop placeholder, :string
+  prop placeholder, :string, default: "Type something..."
   prop content, :string
   prop textarea_class, :css_class
   prop insert_text, :string, default: nil
