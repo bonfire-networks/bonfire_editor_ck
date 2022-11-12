@@ -28,12 +28,14 @@
   <div @click="open = ! open" class="absolute z-10 top-2 right-2 btn btn-ghost btn-xs btn-circle">
     <Icon solid="EmojiHappy" class="w-5 h-5 text-base-content text-opacity-70" />
   </div>
-  <div 
+  <div
     x-ref="panel"
     x-show="open"
     x-transition.origin.top.left
     x-on:click.outside="close($refs.button)"
-    class="absolute z-30 top-10 right-2" role="tooltip">
-    <emoji-picker></emoji-picker>
+    class="absolute z-30 top-10 right-2"
+    role="tooltip"
+  >
+    <emoji-picker />
   </div>
 </div>
