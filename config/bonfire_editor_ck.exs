@@ -1,4 +1,4 @@
 import Config
 
-config :bonfire_editor_ck,
-  disabled: false
+# config :bonfire_editor_ck,
+#   modularity: :disabled
