@@ -1,7 +1,6 @@
 defmodule Bonfire.Editor.Ck do
-  @moduledoc """
-  Component for embedding a CKeditor-based rich text editor
-  """
+  @moduledoc "./README.md" |> File.stream!() |> Enum.drop(1) |> Enum.join()
+
   use Bonfire.UI.Common.Web, :stateless_component
 
   prop field_name, :string
