@@ -1,193 +1,194 @@
 // using a pre-built editor because of troubles building ck's sass with esbuild
 // it can be customised in ./ckeditor (see package.json and src/ckeditor.js) and rebuilt with npm/webpack
 import Editor from "./ckeditor/build/ckeditor";
-import insertText from 'insert-text-at-cursor';
+import insertText from "insert-text-at-cursor";
 
 let EditorCkHooks = {};
 
-EditorCkHooks.CkEditor = { 
-  mounted() {
-    const area = document.querySelector('.editor_area');
+EditorCkHooks.CkEditor = {
+	mounted() {
+		const area = document.querySelector(".editor_area");
 
-    // Get the editor instance from the editable element.
-    const editorInstance = area.ckeditorInstance;
-    
-    if (!editorInstance) {
-      console.log("editor - ck5 loading for elements with class .editor_area");
+		// Get the editor instance from the editable element.
+		const editorInstance = area.ckeditorInstance;
 
-      // console.log(area)
+		if (!editorInstance) {
+			console.log("editor - ck5 loading for elements with class .editor_area");
 
-      placeholder = area.dataset.placeholder || ''
+			// console.log(area)
 
-      Editor.create(area, {
-        mention: {
-          feeds: [
-            {
-              marker: "@",
-              feed: getFeedItems_users,
-              itemRenderer: mentionItemRenderer,
-            },
-            {
-              marker: "&",
-              feed: getFeedItems_groups,
-              itemRenderer: mentionItemRenderer,
-            },
-            {
-              marker: "+",
-              feed: getFeedItems_extras,
-              itemRenderer: mentionItemRenderer,
-            },
-          ],
-        },
-        placeholder: placeholder,
-      })
-        .then((editor) => {
-          console.log("editor ready");
-          window.editor = editor;
-          
-          // insertText(window.editor, this.el.dataset.insert_text)
-        })
-        .catch((error) => {
-          console.error("There was a problem initializing the editor.", error);
-        });
+			placeholder = area.dataset.placeholder || "";
 
-      // Assuming there is a <form class="with_editor"> in your application.
-      document.querySelector('form.with_editor').addEventListener('submit', (event) => {
-        const editorData = editor.getData();
-        // console.log(editorData)
-        // console.log(this)
-        this.el.querySelector('.editor_hidden_input').value = editorData;
-      });
+			Editor.create(area, {
+				mention: {
+					feeds: [
+						{
+							marker: "@",
+							feed: getFeedItems_users,
+							itemRenderer: mentionItemRenderer,
+						},
+						{
+							marker: "&",
+							feed: getFeedItems_groups,
+							itemRenderer: mentionItemRenderer,
+						},
+						{
+							marker: "+",
+							feed: getFeedItems_extras,
+							itemRenderer: mentionItemRenderer,
+						},
+					],
+				},
+				placeholder: placeholder,
+			})
+				.then((editor) => {
+					console.log("editor ready");
+					window.editor = editor;
 
-      const emoji_picker = document.querySelector('emoji-picker')
+					// insertText(window.editor, this.el.dataset.insert_text)
+				})
+				.catch((error) => {
+					console.error("There was a problem initializing the editor.", error);
+				});
 
-      if (emoji_picker) {
-        emoji_picker.addEventListener('emoji-click', e => {
-          console.log(e)
-          console.log("emoji")
-          insertText(document.querySelector('#editor'), "e.detail.unicode")
-        }) 
-      }
-    } // end init
+			// Assuming there is a <form class="with_editor"> in your application.
+			document
+				.querySelector("form.with_editor")
+				.addEventListener("submit", (event) => {
+					const editorData = editor.getData();
+					// console.log(editorData)
+					// console.log(this)
+					this.el.querySelector(".editor_hidden_input").value = editorData;
+				});
 
-  },
-  updated() {
-    console.log("editor updated")
-    console.log(this.el.dataset.insert_text)
-    insertText(document.querySelector('#editor'), this.el.dataset.insert_text)
-  }
+			const emoji_picker = document.querySelector("emoji-picker");
+
+			if (emoji_picker) {
+				emoji_picker.addEventListener("emoji-click", (e) => {
+					console.log(e);
+					console.log("emoji");
+					insertText(document.querySelector("#editor"), "e.detail.unicode");
+				});
+			}
+		} // end init
+	},
+	updated() {
+		console.log("editor updated");
+		console.log(this.el.dataset.insert_text);
+		insertText(document.querySelector("#editor"), this.el.dataset.insert_text);
+	},
 };
 
 function getFeedItems_users(queryText) {
-  return getFeedItems(queryText, "@");
+	return getFeedItems(queryText, "@");
 }
 function getFeedItems_groups(queryText) {
-  return getFeedItems(queryText, "&");
+	return getFeedItems(queryText, "&");
 }
 function getFeedItems_extras(queryText) {
-  return getFeedItems(queryText, "+");
+	return getFeedItems(queryText, "+");
 }
 
 function getFeedItems(queryText, prefix) {
-  if (queryText && queryText.length > 0) {
-    return new Promise((resolve) => { 
-      // this requires the bonfire_tag extension
-      fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          resolve(data);
-        })
-        .catch((error) => {
-          console.error("There has been a problem with the tag search:", error);
-          resolve([]);
-        });
-    });
-  } else return [];
+	if (queryText && queryText.length > 0) {
+		return new Promise((resolve) => {
+			// this requires the bonfire_tag extension
+			fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+					resolve(data);
+				})
+				.catch((error) => {
+					console.error("There has been a problem with the tag search:", error);
+					resolve([]);
+				});
+		});
+	} else return [];
 }
 
 function MentionCustomization(editor) {
-  // The upcast converter will convert <a class="mention" href="" data-user-id="">
-  // elements to the model 'mention' attribute.
-  editor.conversion.for("upcast").elementToAttribute({
-    view: {
-      name: "a",
-      key: "data-mention",
-      classes: "mention",
-      attributes: {
-        href: true,
-        "data-user-id": true,
-      },
-    },
-    model: {
-      key: "mention",
-      value: (viewItem) => {
-        // The mention feature expects that the mention attribute value
-        // in the model is a plain object with a set of additional attributes.
-        // In order to create a proper object, use the toMentionAttribute helper method:
-        const mentionAttribute = editor.plugins
-          .get("Mention")
-          .toMentionAttribute(viewItem, {
-            // Add any other properties that you need.
-            link: viewItem.getAttribute("href"),
-            // userId: viewItem.getAttribute("data-user-id"),
-          });
+	// The upcast converter will convert <a class="mention" href="" data-user-id="">
+	// elements to the model 'mention' attribute.
+	editor.conversion.for("upcast").elementToAttribute({
+		view: {
+			name: "a",
+			key: "data-mention",
+			classes: "mention",
+			attributes: {
+				href: true,
+				"data-user-id": true,
+			},
+		},
+		model: {
+			key: "mention",
+			value: (viewItem) => {
+				// The mention feature expects that the mention attribute value
+				// in the model is a plain object with a set of additional attributes.
+				// In order to create a proper object, use the toMentionAttribute helper method:
+				const mentionAttribute = editor.plugins
+					.get("Mention")
+					.toMentionAttribute(viewItem, {
+						// Add any other properties that you need.
+						link: viewItem.getAttribute("href"),
+						// userId: viewItem.getAttribute("data-user-id"),
+					});
 
-        return mentionAttribute;
-      },
-    },
-    converterPriority: "high",
-  });
+				return mentionAttribute;
+			},
+		},
+		converterPriority: "high",
+	});
 
-  // Downcast the model 'mention' text attribute to a view <a> element.
-  editor.conversion.for("downcast").attributeToElement({
-    model: "mention",
-    view: (modelAttributeValue, viewWriter) => {
-      // Do not convert empty attributes (lack of value means no mention).
-      if (!modelAttributeValue) {
-        return;
-      }
+	// Downcast the model 'mention' text attribute to a view <a> element.
+	editor.conversion.for("downcast").attributeToElement({
+		model: "mention",
+		view: (modelAttributeValue, viewWriter) => {
+			// Do not convert empty attributes (lack of value means no mention).
+			if (!modelAttributeValue) {
+				return;
+			}
 
-      return viewWriter.createAttributeElement(
-        "a",
-        {
-          class: "mention",
-          "data-mention": modelAttributeValue.id,
-          // "data-user-id": modelAttributeValue.userId,
-          href: modelAttributeValue.link,
-        },
-        {
-          // Make mention attribute to be wrapped by other attribute elements.
-          priority: 20,
-          // Prevent merging mentions together.
-          id: modelAttributeValue.uid,
-        }
-      );
-    },
-    converterPriority: "high",
-  });
+			return viewWriter.createAttributeElement(
+				"a",
+				{
+					class: "mention",
+					"data-mention": modelAttributeValue.id,
+					// "data-user-id": modelAttributeValue.userId,
+					href: modelAttributeValue.link,
+				},
+				{
+					// Make mention attribute to be wrapped by other attribute elements.
+					priority: 20,
+					// Prevent merging mentions together.
+					id: modelAttributeValue.uid,
+				},
+			);
+		},
+		converterPriority: "high",
+	});
 }
 
 function mentionItemRenderer(item) {
-  const itemElement = document.createElement("span");
-  console.log(item)
-  itemElement.classList.add("mention-item");
-  const nameElement = document.createElement("span");
-  nameElement.classList.add("mention-item-name", "font-semibold");
-  nameElement.textContent = item.name;
-  itemElement.appendChild(nameElement);
+	const itemElement = document.createElement("span");
+	console.log(item);
+	itemElement.classList.add("mention-item");
+	const nameElement = document.createElement("span");
+	nameElement.classList.add("mention-item-name", "font-semibold");
+	nameElement.textContent = item.name;
+	itemElement.appendChild(nameElement);
 
-  // itemElement.id = `mention-list-item-id-${item.userId}`;
-  // itemElement.textContent = `${item.name} `;
+	// itemElement.id = `mention-list-item-id-${item.userId}`;
+	// itemElement.textContent = `${item.name} `;
 
-  const usernameElement = document.createElement("span");
+	const usernameElement = document.createElement("span");
 
-  usernameElement.classList.add("mention-item-username", "font-light", "ml-1");
-  usernameElement.textContent = item.id;
+	usernameElement.classList.add("mention-item-username", "font-light", "ml-1");
+	usernameElement.textContent = item.id;
 
-  itemElement.appendChild(usernameElement);
+	itemElement.appendChild(usernameElement);
 
-  return itemElement;
+	return itemElement;
 }
 
-export { EditorCkHooks }
+export { EditorCkHooks };

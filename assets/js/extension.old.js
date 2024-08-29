@@ -7,13 +7,13 @@ import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic";
 import Code from "@ckeditor/ckeditor5-basic-styles/src/code";
 // import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough";
 import Link from "@ckeditor/ckeditor5-link/src/link";
-import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph"; 
+import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 import Heading from "@ckeditor/ckeditor5-heading/src/heading";
- 
+
 import Indent from "@ckeditor/ckeditor5-indent/src/indent";
 import IndentBlock from "@ckeditor/ckeditor5-indent/src/indentblock";
 import BulletedList from "@ckeditor/ckeditor5-list/src/list";
-import NumberedList from "@ckeditor/ckeditor5-list/src/list"; 
+import NumberedList from "@ckeditor/ckeditor5-list/src/list";
 
 import TodoList from "@ckeditor/ckeditor5-list/src/todolist";
 import Mention from "@ckeditor/ckeditor5-mention/src/mention";
@@ -28,196 +28,196 @@ let EditorCkHooks = {};
 
 // Simple plugin which loads the github-flavoured-markdown data processor.
 function ck5Markdown(editor) {
-  editor.data.processor = new GFMDataProcessor(editor.editing.view.document);
+	editor.data.processor = new GFMDataProcessor(editor.editing.view.document);
 }
 
 EditorCkHooks.MarkdownEditor = {
-  mounted() {
-    console.log("editor - ck5 loading!");
+	mounted() {
+		console.log("editor - ck5 loading!");
 
-    ClassicEditor.create(document.querySelector(".editor_textarea"), {
-      plugins: [
-        ck5Markdown,
+		ClassicEditor.create(document.querySelector(".editor_textarea"), {
+			plugins: [
+				ck5Markdown,
 
-        Autoformat,
+				Autoformat,
 
-        Essentials,
-        Paragraph,
-        Bold,
-        Italic,
-        // Underline,
-        // Strikethrough,
-        Link,
-        Heading,
+				Essentials,
+				Paragraph,
+				Bold,
+				Italic,
+				// Underline,
+				// Strikethrough,
+				Link,
+				Heading,
 
-        Indent,
-        IndentBlock,
-        BulletedList,
-        NumberedList,
+				Indent,
+				IndentBlock,
+				BulletedList,
+				NumberedList,
 
-        Mention,
-        MentionCustomization,
+				Mention,
+				MentionCustomization,
 
-        // TodoList,
-      ],
-      toolbar: {
-        items: [
-          "bold",
-          "italic",
-          // "underline",
-          // "strikethrough",
-          "|",
-          "code",
-          "|",
-          "link",
-          "|",
-          "heading",
-          "|",
-          "bulletedList",
-          "numberedList",
-          // "todoList",
-          "|",
-          "outdent",
-          "indent",
-          "|",
-          "undo",
-          "redo",
-        ],
-      },
-      mention: {
-        feeds: [
-          {
-            marker: "@",
-            feed: getFeedItems_users,
-            itemRenderer: mentionItemRenderer,
-          },
-          {
-            marker: "&",
-            feed: getFeedItems_groups,
-            itemRenderer: mentionItemRenderer,
-          },
-          {
-            marker: "+",
-            feed: getFeedItems_extras,
-            itemRenderer: mentionItemRenderer,
-          },
-        ],
-      },
-    })
-      .then((editor) => {
-        window.editor = editor;
-      })
-      .catch((error) => {
-        console.error("There was a problem initializing the editor.", error);
-      });
-  },
+				// TodoList,
+			],
+			toolbar: {
+				items: [
+					"bold",
+					"italic",
+					// "underline",
+					// "strikethrough",
+					"|",
+					"code",
+					"|",
+					"link",
+					"|",
+					"heading",
+					"|",
+					"bulletedList",
+					"numberedList",
+					// "todoList",
+					"|",
+					"outdent",
+					"indent",
+					"|",
+					"undo",
+					"redo",
+				],
+			},
+			mention: {
+				feeds: [
+					{
+						marker: "@",
+						feed: getFeedItems_users,
+						itemRenderer: mentionItemRenderer,
+					},
+					{
+						marker: "&",
+						feed: getFeedItems_groups,
+						itemRenderer: mentionItemRenderer,
+					},
+					{
+						marker: "+",
+						feed: getFeedItems_extras,
+						itemRenderer: mentionItemRenderer,
+					},
+				],
+			},
+		})
+			.then((editor) => {
+				window.editor = editor;
+			})
+			.catch((error) => {
+				console.error("There was a problem initializing the editor.", error);
+			});
+	},
 };
 
 function getFeedItems_users(queryText) {
-  return getFeedItems(queryText, "@");
+	return getFeedItems(queryText, "@");
 }
 function getFeedItems_groups(queryText) {
-  return getFeedItems(queryText, "&");
+	return getFeedItems(queryText, "&");
 }
 function getFeedItems_extras(queryText) {
-  return getFeedItems(queryText, "+");
+	return getFeedItems(queryText, "+");
 }
 
 function getFeedItems(queryText, prefix) {
-  if (queryText && queryText.length > 0) {
-    return new Promise((resolve) => { 
-      // this requires the bonfire_tag extension
-      fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          resolve(data);
-        })
-        .catch((error) => {
-          console.error("There has been a problem with the tag search:", error);
-          resolve([]);
-        });
-    });
-  } else return [];
+	if (queryText && queryText.length > 0) {
+		return new Promise((resolve) => {
+			// this requires the bonfire_tag extension
+			fetch("/api/tag/autocomplete/ck5/" + prefix + "/" + queryText)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+					resolve(data);
+				})
+				.catch((error) => {
+					console.error("There has been a problem with the tag search:", error);
+					resolve([]);
+				});
+		});
+	} else return [];
 }
 
 function MentionCustomization(editor) {
-  // The upcast converter will convert <a class="mention" href="" data-user-id="">
-  // elements to the model 'mention' attribute.
-  editor.conversion.for("upcast").elementToAttribute({
-    view: {
-      name: "a",
-      key: "data-mention",
-      classes: "mention",
-      attributes: {
-        href: true,
-        "data-user-id": true,
-      },
-    },
-    model: {
-      key: "mention",
-      value: (viewItem) => {
-        // The mention feature expects that the mention attribute value
-        // in the model is a plain object with a set of additional attributes.
-        // In order to create a proper object, use the toMentionAttribute helper method:
-        const mentionAttribute = editor.plugins
-          .get("Mention")
-          .toMentionAttribute(viewItem, {
-            // Add any other properties that you need.
-            link: viewItem.getAttribute("href"),
-            // userId: viewItem.getAttribute("data-user-id"),
-          });
+	// The upcast converter will convert <a class="mention" href="" data-user-id="">
+	// elements to the model 'mention' attribute.
+	editor.conversion.for("upcast").elementToAttribute({
+		view: {
+			name: "a",
+			key: "data-mention",
+			classes: "mention",
+			attributes: {
+				href: true,
+				"data-user-id": true,
+			},
+		},
+		model: {
+			key: "mention",
+			value: (viewItem) => {
+				// The mention feature expects that the mention attribute value
+				// in the model is a plain object with a set of additional attributes.
+				// In order to create a proper object, use the toMentionAttribute helper method:
+				const mentionAttribute = editor.plugins
+					.get("Mention")
+					.toMentionAttribute(viewItem, {
+						// Add any other properties that you need.
+						link: viewItem.getAttribute("href"),
+						// userId: viewItem.getAttribute("data-user-id"),
+					});
 
-        return mentionAttribute;
-      },
-    },
-    converterPriority: "high",
-  });
+				return mentionAttribute;
+			},
+		},
+		converterPriority: "high",
+	});
 
-  // Downcast the model 'mention' text attribute to a view <a> element.
-  editor.conversion.for("downcast").attributeToElement({
-    model: "mention",
-    view: (modelAttributeValue, viewWriter) => {
-      // Do not convert empty attributes (lack of value means no mention).
-      if (!modelAttributeValue) {
-        return;
-      }
+	// Downcast the model 'mention' text attribute to a view <a> element.
+	editor.conversion.for("downcast").attributeToElement({
+		model: "mention",
+		view: (modelAttributeValue, viewWriter) => {
+			// Do not convert empty attributes (lack of value means no mention).
+			if (!modelAttributeValue) {
+				return;
+			}
 
-      return viewWriter.createAttributeElement(
-        "a",
-        {
-          class: "mention",
-          "data-mention": modelAttributeValue.id,
-          // "data-user-id": modelAttributeValue.userId,
-          href: modelAttributeValue.link,
-        },
-        {
-          // Make mention attribute to be wrapped by other attribute elements.
-          priority: 20,
-          // Prevent merging mentions together.
-          id: modelAttributeValue.uid,
-        }
-      );
-    },
-    converterPriority: "high",
-  });
+			return viewWriter.createAttributeElement(
+				"a",
+				{
+					class: "mention",
+					"data-mention": modelAttributeValue.id,
+					// "data-user-id": modelAttributeValue.userId,
+					href: modelAttributeValue.link,
+				},
+				{
+					// Make mention attribute to be wrapped by other attribute elements.
+					priority: 20,
+					// Prevent merging mentions together.
+					id: modelAttributeValue.uid,
+				},
+			);
+		},
+		converterPriority: "high",
+	});
 }
 
 function mentionItemRenderer(item) {
-  const itemElement = document.createElement("span");
+	const itemElement = document.createElement("span");
 
-  itemElement.classList.add("custom-item");
-  // itemElement.id = `mention-list-item-id-${item.userId}`;
-  itemElement.textContent = `${item.name} `;
+	itemElement.classList.add("custom-item");
+	// itemElement.id = `mention-list-item-id-${item.userId}`;
+	itemElement.textContent = `${item.name} `;
 
-  const usernameElement = document.createElement("span");
+	const usernameElement = document.createElement("span");
 
-  usernameElement.classList.add("custom-item-username");
-  usernameElement.textContent = item.id;
+	usernameElement.classList.add("custom-item-username");
+	usernameElement.textContent = item.id;
 
-  itemElement.appendChild(usernameElement);
+	itemElement.appendChild(usernameElement);
 
-  return itemElement;
+	return itemElement;
 }
 
-export { EditorCkHooks }
+export { EditorCkHooks };
