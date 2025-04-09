@@ -22,6 +22,8 @@ defmodule Bonfire.Editor.Ck.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       # import Bonfire.Editor.Ck.DataCase
+
+      @moduletag :backend
     end
   end
 
